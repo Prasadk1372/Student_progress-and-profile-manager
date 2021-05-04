@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Add your Certificate</title>
+    <link href="/docs/4.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+</head>
+<body>
+
+    <form action="certificates.php" method="POST">
+        <h1 style="text-align: center;" >certification</h1><br>
+             <div style="margin-left: 500px;">                <h4>Title</h4>
+            <input type="text" id="title" name="title" value="" style="width: 500px;">
+            </div>
+            <br>
+            <div style="margin-left: 500px;">
+                <h4>Organization</h4>
+            <input type="text" id="organization" name="organization" value="" style="width: 500px;"><br><br>
+            </div>
+
+             <div style="margin-left: 500px;">  
+                  <h4>Credential ID</h4>
+                <input type="text" id="credentialid" name="credentialid" value="" style="width: 300px;">
+            </div>
+            <br>
+            <div style="margin-left: 500px;">
+                <h4>Credential URL</h4>
+                <input type="text" id="URL" name="URL" value="" style="width: 500px;">
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-left: 675px; margin-top: 20px;">Add Certificate</button>
+      </form>
+    </div>
+
+</body>
+</html>
