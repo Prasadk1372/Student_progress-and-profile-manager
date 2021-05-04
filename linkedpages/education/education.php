@@ -102,7 +102,7 @@ if (!$conn) {
       </thead>
       <tbody>
         <?php
-        $sql = "SELECT * FROM `education` WHERE `PRN`='18UCS004' ";
+        $sql = "SELECT * FROM `education` WHERE `PRN`='18UCS055' ";
         $result = mysqli_query($conn, $sql);
         $hsc = "HSC";
         $ssc = "SSC";

@@ -22,11 +22,8 @@ echo'
           <a class="nav-link" href="/Student_progress-and-profile-manager/facultyhome.php">Home</a>
         </li>';
         }
-      // <li class="nav-item">
-      //   <a class="nav-link" href="/Student_progress-and-profile-manager/home.php">Home</a>
-      // </li>
      echo' <li class="nav-item">
-          <a href="mailto:kulkarniprasad7777@gmail.com.com">contact us</a>
+          <a class="nav-link" href="mailto:kulkarniprasad7777@gmail.com.com">contact us</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/Student_progress-and-profile-manager/partials/aboutus.php">About Us</a>
