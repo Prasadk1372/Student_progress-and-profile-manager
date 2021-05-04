@@ -81,7 +81,7 @@ else{
 </head>
 <style>
   body{
-    background-image: url("/project/img/1.jpg");
+    background-image: url("/Student_progress-and-profile-manager/img/1.jpg");
     background-color: #cccccc; 
     opacity:1;
     height: 600px; 
@@ -196,7 +196,7 @@ else{
 
         if (confirm("Are you sure you want to delete this note!")) {
           console.log("yes");
-          window.location = `/project/linkedpages/certifications/certificates.php?delete=${sno}`;
+          window.location = `/Student_progress-and-profile-manager/linkedpages/certifications/certificates.php?delete=${sno}`;
           // TODO: Create a form and use post request to submit a form
         }
         else {
