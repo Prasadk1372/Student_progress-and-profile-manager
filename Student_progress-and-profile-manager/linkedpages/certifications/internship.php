@@ -7,7 +7,7 @@ $delete = false;
 $servername = "localhost";
 $username = "root";
 $password = "";
-$database = "users";
+$database = "dkte";
 
 // Create a connection
 $conn = mysqli_connect($servername, $username, $password, $database);
