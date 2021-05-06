@@ -1,5 +1,10 @@
 <?php  
-// INSERT INTO `notes` (`sno`, `title`, `description`, `tstamp`) VALUES (NULL, 'But Books', 'Please buy books from Store', current_timestamp());
+
+// start the session 
+session_start();
+$prn = $_SESSION["prn"];
+
+
 $insert = false;
 $update = false;
 $delete = false;
@@ -34,8 +39,8 @@ if (isset( $_POST['snoEdit'])){
 
 
   // Sql query to be executed
-  //$sql="UPDATE `notes` SET `title` = '$title', `organization` = '$organization', `credentialid` = '$credentialid' WHERE `notes`.`sno` = $sno";
-  $sql="UPDATE `intern` SET `title` = '$ititle', `company` = '$company', `employement-type` = '$employementtype' WHERE `intern`.`sno` = $sno";
+ 
+  $sql="UPDATE `intern` SET `title` = '$ititle', `company` = '$company', `employement-type` = '$employementtype' WHERE `intern`.`sno` = ' $sno'";
   $result = mysqli_query($conn, $sql);
   if($result){
     $update = true;
@@ -50,8 +55,8 @@ else{
     $employementtype= $_POST["employementtype"];
 
   // Sql query to be executed
-  //$sql = "INSERT INTO `notes` (`title`, `organization`, `credentialid`) VALUES ('$title ', '$organization', '$credentialid');";
-  $sql = "INSERT INTO `intern` (`title`, `company`, `employement-type`) VALUES ('$ititle', '$company', '$employementtype');";
+  
+  $sql = "INSERT INTO `intern` (`prn`,`title`, `company`, `employement-type`) VALUES ('$prn','$ititle', '$company', '$employementtype');";
   $result = mysqli_query($conn, $sql);
 
    
@@ -152,7 +157,7 @@ else{
   <?php
   if($insert){
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-    <strong>Success!</strong> Your note has been inserted successfully
+    <strong>Success!</strong> Your internship has been inserted successfully
     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
       <span aria-hidden='true'>×</span>
     </button>
@@ -162,7 +167,7 @@ else{
   <?php
   if($delete){
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-    <strong>Success!</strong> Your note has been deleted successfully
+    <strong>Success!</strong> Your internship has been deleted successfully
     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
       <span aria-hidden='true'>×</span>
     </button>
@@ -172,7 +177,7 @@ else{
   <?php
   if($update){
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-    <strong>Success!</strong> Your note has been updated successfully
+    <strong>Success!</strong> Your internship has been updated successfully
     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
       <span aria-hidden='true'>×</span>
     </button>
@@ -206,7 +211,7 @@ else{
       <tbody;>
 
         <?php 
-          $sql = "SELECT * FROM `intern`";
+          $sql = "SELECT * FROM `intern` where `prn`='$prn'";
           $result = mysqli_query($conn, $sql);
           $sno = 0;
           while($row = mysqli_fetch_assoc($result)){
@@ -245,8 +250,8 @@ else{
     edits = document.getElementsByClassName('edit');
     Array.from(edits).forEach((element) => {
       element.addEventListener("click", (e) => {
-        console.log("edit ");
-        tr = e.target.parentNode.parentNode.parentNode;
+        console.log("edit values ");
+        tr = e.target.parentNode.parentNode;
         ititle = tr.getElementsByTagName("td")[0].innerText;
         company = tr.getElementsByTagName("td")[1].innerText;
         employementtype = tr.getElementsByTagName("td")[2].innerText;

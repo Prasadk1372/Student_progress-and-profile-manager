@@ -1,7 +1,8 @@
 <?php
 
-$update = false;
 
+// start the session 
+session_start();
 // Connect to the Database 
 $servername = "localhost";
 $username = "root";
@@ -16,6 +17,7 @@ if (!$conn) {
   die("Sorry we failed to connect: " . mysqli_connect_error());
 }
 
+$prn = $_SESSION["prn"];
 ?>
 
 <!doctype html>
@@ -71,20 +73,21 @@ if (!$conn) {
     background: darkseagreen;
 
   } */
-    body {
-        /* background-image: url("1.png"); */
-        background-color: rgb(200, 200, 173);
-        opacity: 1;
-        height: 600px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        opacity: 5.0;
-        border-right: 1px solid white;
-    }
+  body {
+    /* background-image: url("1.png"); */
+    background-color: rgb(200, 200, 173);
+    opacity: 1;
+    height: 600px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 5.0;
+    border-right: 1px solid white;
+  }
 </style>
 
-<body >
+<body>
+  
 
   <div class="container my-4" style=" border: 3px solid black;">
 
@@ -102,8 +105,10 @@ if (!$conn) {
       </thead>
       <tbody>
         <?php
-        $sql = "SELECT * FROM `education` WHERE `PRN`='18UCS055' ";
+        $sql = "SELECT * FROM `education` WHERE `prn`='$prn' ";
         $result = mysqli_query($conn, $sql);
+        $rowcount = mysqli_num_rows($result);
+        if($rowcount>0){  
         $hsc = "HSC";
         $ssc = "SSC";
         $row = mysqli_fetch_assoc($result);
@@ -122,6 +127,7 @@ if (!$conn) {
           <td>" . $row['hscp'] . "</td>
        
         </tr>";
+      }
         ?>
 
 
@@ -153,44 +159,90 @@ if (!$conn) {
         <?php
         $sql = "SELECT * FROM `education` WHERE `PRN`='18UCS004' ";
         $result = mysqli_query($conn, $sql);
-        $row = mysqli_fetch_assoc($result);
-        echo "<tr>
+      
+        if(isset($row['sem1']))
+        { echo "<tr>
             <td>   FIRST YEAR -I  SEMESTER</td>
             <td>" . $row['sem1'] . "</td>
-          </tr>
-          <tr>
-            <td>FIRST YEAR -II SEMESTER</td>
+          </tr>";
+        }
+        if(isset($row['sem2']))
+        { echo "<tr>
+            <td>   FIRST YEAR -II  SEMESTER</td>
             <td>" . $row['sem2'] . "</td>
-          </tr>
-          <tr>
-          <td>SECOND YEAR -I  SEMESTER</td>
-          <td>" . $row['sem3'] . "</td>
-        </tr>
-        <tr>
-        <td>SECOND YEAR -II SEMESTER</td>
-        <td>" . $row['sem4'] . "</td>
-          </tr>
-       <tr>
-      <td>THIRD YEAR -I SEMESTER</td>
-      <td>" . $row['sem5'] . "</td>
-       </tr>
-       <tr>
-      <td>THIRD YEAR -II SEMESTER</td>
-      <td>" . $row['sem6'] . "</td>
-       </tr>
-       <tr>
-      <td>FOURTH YEAR -I SEMESTER</td>
-      <td>" . $row['sem7'] . "</td>
-       </tr>
-       <tr>
-      <td>FOURTH YEAR -II SEMESTER</td>
-      <td>" . $row['sem8'] . "</td>
-       </tr>
+          </tr>";
+        }
+        if(isset($row['sem3']))
+        { echo "<tr>
+            <td>   SECOND YEAR -I SEMESTER</td>
+            <td>" . $row['sem3'] . "</td>
+          </tr>";
+        }
+        if(isset($row['sem4']))
+        { echo "<tr>
+            <td>  SECOND YEAR -II SEMESTER</td>
+            <td>" . $row['sem4'] . "</td>
+          </tr>";
+        }
+        if(isset($row['sem5']))
+        { echo "<tr>
+            <td>  THIRD YEAR -I SEMESTER</td>
+            <td>" . $row['sem5'] . "</td>
+          </tr>";
+        }
+        if(isset($row['sem6']))
+        { echo "<tr>
+            <td> THIRD YEAR -II SEMESTER</td>
+            <td>" . $row['sem6'] . "</td>
+          </tr>";
+        }
+        if(isset($row['sem7']))
+        { echo "<tr>
+            <td>   FOURTH YEAR -I SEMESTER</td>
+            <td>" . $row['sem7'] . "</td>
+          </tr>";
+        }
+        if(isset($row['sem8']))
+        { echo "<tr>
+            <td>   FOURTH YEAR -II SEMESTER</td>
+            <td>" . $row['sem8'] . "</td>
+          </tr>";
+        }
        
-       
-       
-       
-       ";
+
+        //   <tr>
+        //     <td>FIRST YEAR -II SEMESTER</td>
+        //     <td>" . $row['sem2'] . "</td>
+        //   </tr>
+        //   <tr>
+        //   <td>SECOND YEAR -I  SEMESTER</td>
+        //   <td>" . $row['sem3'] . "</td>
+        // </tr>
+        // <tr>
+        // <td>SECOND YEAR -II SEMESTER</td>
+        // <td>" . $row['sem4'] . "</td>
+        //     </tr>
+        // <tr>
+        // <td>THIRD YEAR -I SEMESTER</td>
+        // <td>" . $row['sem5'] . "</td>
+        // </tr>
+        // <tr>
+        // <td>THIRD YEAR -II SEMESTER</td>
+        // <td>" . $row['sem6'] . "</td>
+        // </tr>
+        // <tr>
+        // <td>FOURTH YEAR -I SEMESTER</td>
+        // <td>" . $row['sem7'] . "</td>
+        // </tr>
+        // <tr>
+        // <td>FOURTH YEAR -II SEMESTER</td>
+        // <td>" . $row['sem8'] . "</td>
+        // </tr>
+        
+        
+        
+        
+        // ";
         ?>
 
 

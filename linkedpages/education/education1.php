@@ -3,6 +3,7 @@
 
 session_start();
 
+$prn = $_SESSION["prn"];
 
 $servername="localhost";
 $username="root";
@@ -20,29 +21,32 @@ if(!$conn)
 }
 
 
-$sqli = "SELECT * FROM `education` WHERE `PRN`='18UCS004' ";
+$sqli = "SELECT * FROM `education` WHERE `prn`='$prn' ";
 $resulti = mysqli_query($conn, $sqli);
 $rowi = mysqli_fetch_assoc($resulti);
 
-$ssci=$rowi['ssc'];
-$sscpi= $rowi['sscp'];
-$sscsi=$rowi['sscs'];
+        if(isset($rowi))
+        {
+        $ssci=$rowi['ssc'];
+        $sscpi= $rowi['sscp'];
+        $sscsi=$rowi['sscs'];
 
-$hsci=$rowi['hsc'];
-$hscpi=$rowi['hscp'];
-$hscsi=$rowi['hscs'];
+        $hsci=$rowi['hsc'];
+        $hscpi=$rowi['hscp'];
+        $hscsi=$rowi['hscs'];
+      }
 
 
 
 if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
-    header("location: index.php");
+    header("location: .php");
    
 }
 
 
 if(isset($_POST['btnSubmit']))
   {
-    $PRN=$_SESSION['prn'];
+    
 
     $ssc=$_POST['ssc'];
     $sscp= $_POST['percentage1'];
@@ -53,11 +57,32 @@ if(isset($_POST['btnSubmit']))
     $hscs=$_POST['seat2'];
 
 
+                  $sql = "SELECT * FROM `education` WHERE `prn`='$prn' ";
+                  $result = mysqli_query($conn, $sql);
+                  $rowcount = mysqli_num_rows($result);
+                  if($rowcount==0)
+                  {
+                      // INSERT NEW RECORD USE INSERT QUERY
+
+                      $sql = "INSERT INTO `education`( `prn`, `ssc`, `sscp`, `sscs`, `hsc`, `hscp`, `hscs`) VALUES ('$prn','$ssc','$sscp','$sscs','$hsc','$hscp','$hscs') ";
+                      
+
+
+
+                  }
+                  else{
+                    
+                      
+                        $sql="UPDATE `education` SET `ssc`='$ssc',`sscp`='$sscp',`sscs`='$sscs',`hsc`='$hsc',`hscp`='$hscp',`hscs`='$hscs' WHERE `PRN`='$prn'";
+                  }
+                  
+
+
+
   
 
 
     
-     $sql="UPDATE `education` SET `ssc`='$ssc',`sscp`='$sscp',`sscs`='$sscs',`hsc`='$hsc',`hscp`='$hscp',`hscs`='$hscs' WHERE `PRN`='$PRN'";
 
     
 
@@ -88,7 +113,7 @@ if(isset($_POST['btnSubmit']))
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="/docs/4.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <title>Education</title>
+    <title>Education Background</title>
 
 </head>
 
@@ -139,11 +164,11 @@ if(isset($_POST['btnSubmit']))
         <option value="OTHER">other state board</option>
       </select>
         <label for="Percentage">Percentage:</label>
-        <input type="text" id="Percentage" name="percentage1"  value=    <?php     echo " $sscpi ";          ?> >
+        <input type="text" id="Percentage" name="percentage1"  value=    <?php  if(isset($sscpi)){echo " $sscpi ";}          ?> >
 
 
         <label for="seat">seat no.:</label>
-        <input type="text" id="seat" name="seat1" value=    <?php     echo " $sscsi ";          ?>   >
+        <input type="text" id="seat" name="seat1" value=    <?php      if(isset($sscsi)){echo "$sscsi";}             ?>   >
         
         
         <br>
@@ -158,10 +183,10 @@ if(isset($_POST['btnSubmit']))
       </select>
      
         <label for="Percentage">Percentage:</label>
-        <input type="text" id="Percentage" name="percentage2"  value=    <?php     echo " $hscpi ";          ?>>
+        <input type="text" id="Percentage" name="percentage2"  value=    <?php  if(isset($hscpi)){echo " $hscpi ";}            ?>>
      
         <label for="seat">seat no.:</label>
-        <input type="text" id="seat" name="seat2"  value=    <?php     echo " $hscsi ";          ?>><br>
+        <input type="text" id="seat" name="seat2"  value=    <?php    if(isset($hscsi)){echo " $hscsi ";}         ?>><br>
     <button style="margin-bottom: 10px;" id="submit" type="submit" name ="btnSubmit" class="btn btn-primary">SUBMIT</button>
   </form>
    

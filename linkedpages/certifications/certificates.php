@@ -1,4 +1,9 @@
 <?php  
+
+
+// start the session 
+session_start();
+$prn = $_SESSION["prn"];
 // INSERT INTO `certificates` (`sno`, `title`, `description`, `tstamp`) VALUES (NULL, 'But Books', 'Please buy books from Store', current_timestamp());
 $insert = false;
 $update = false;
@@ -20,7 +25,7 @@ if (!$conn){
 if(isset($_GET['delete'])){
   $sno = $_GET['delete'];
   $delete = true;
-  $sql = "DELETE FROM `certificates` WHERE `certificates`.`sno` = $sno";
+  $sql = "DELETE FROM `certificates` WHERE `certificates`.`sno` = '$sno'";
   $result = mysqli_query($conn, $sql);
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -33,7 +38,7 @@ if (isset( $_POST['snoEdit'])){
 
 
   // Sql query to be executed
-  $sql="UPDATE `certificates` SET `title` = '$title', `organization` = '$organization', `credentialid` = '$credentialid' WHERE `certificates`.`sno` = $sno";
+  $sql="UPDATE `certificates` SET `title` = '$title', `organization` = '$organization', `credentialid` = '$credentialid' WHERE `certificates`.`sno` = '$sno'";
   $result = mysqli_query($conn, $sql);
   if($result){
     $update = true;
@@ -48,7 +53,7 @@ else{
     $credentialid= $_POST["credentialid"];
 
   // Sql query to be executed
-  $sql = "INSERT INTO `certificates` (`title`, `organization`, `credentialid`) VALUES ('$title ', '$organization', '$credentialid');";
+  $sql = "INSERT INTO `certificates` (`prn`,`title`, `organization`, `credentialid`) VALUES ('$prn','$title', '$organization', '$credentialid')";
   $result = mysqli_query($conn, $sql);
 
    
@@ -115,7 +120,7 @@ else{
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Edit this Note</h5>
+          <h5 class="modal-title" id="editModalLabel">Edit this Record</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -125,7 +130,7 @@ else{
             <input type="hidden" name="snoEdit" id="snoEdit">
             <div class="form-group">
               <label for="title">Title</label>
-              <input type="text" class="form-control" id="titleEdit" name="titleEdit"  aria-describedby="emailHelp">
+              <input type="text" class="form-control" id="titleEdit" name="titleEdit"  aria-describedby="titleedit">
             </div>
 
             <div class="form-group">
@@ -151,7 +156,7 @@ else{
   <?php
   if($insert){
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-    <strong>Success!</strong> Your note has been inserted successfully
+    <strong>Success!</strong> Your certificate has been inserted successfully
     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
       <span aria-hidden='true'>×</span>
     </button>
@@ -161,7 +166,7 @@ else{
   <?php
   if($delete){
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-    <strong>Success!</strong> Your note has been deleted successfully
+    <strong>Success!</strong> Your certificate has been deleted successfully
     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
       <span aria-hidden='true'>×</span>
     </button>
@@ -171,7 +176,7 @@ else{
   <?php
   if($update){
     echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-    <strong>Success!</strong> Your note has been updated successfully
+    <strong>Success!</strong> Your certificate has been updated successfully
     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
       <span aria-hidden='true'>×</span>
     </button>
@@ -183,10 +188,6 @@ else{
     <form action="addcertificate.html">
       <button type="submit" class="btn btn-primary">Add Certificates</button>
     </form>
-
-    <!-- <form action="addinternship.html">
-      <button type="submit" class="btn btn-primary">Add Internship</button>
-    </form> -->
   </div>
 
   <div class="container my-4">
@@ -205,7 +206,7 @@ else{
       <tbody;>
 
         <?php 
-          $sql = "SELECT * FROM `certificates`";
+          $sql = "SELECT * FROM `certificates` where `prn`='$prn'";
           $result = mysqli_query($conn, $sql);
           $sno = 0;
           while($row = mysqli_fetch_assoc($result)){
@@ -244,8 +245,8 @@ else{
     edits = document.getElementsByClassName('edit');
     Array.from(edits).forEach((element) => {
       element.addEventListener("click", (e) => {
-        console.log("edit ");
-        tr = e.target.parentNode.parentNode.parentNode;
+        console.log("edit values");
+        tr = e.target.parentNode.parentNode;
         snoEdit.value = e.target.id;
         title = tr.getElementsByTagName("td")[0].innerText;
         organization = tr.getElementsByTagName("td")[1].innerText;
@@ -263,7 +264,7 @@ else{
     deletes = document.getElementsByClassName('delete');
     Array.from(deletes).forEach((element) => {
       element.addEventListener("click", (e) => {
-        console.log("edit ");
+        console.log("edit");
         sno = e.target.id.substr(1);
 
         if (confirm("Are you sure you want to delete this note!")) {

@@ -2,6 +2,7 @@
 <?php
 
 session_start();
+$prn = $_SESSION["prn"];
   
 $servername="localhost";
 $username="root";
@@ -20,12 +21,14 @@ if(!$conn)
 
 
 
-
-$sqli = "SELECT * FROM `education` WHERE `PRN`='18UCS004' ";
+$sqli = "SELECT * FROM `education` WHERE `prn`='$prn' ";
 $resulti = mysqli_query($conn, $sqli);
 $rowi = mysqli_fetch_assoc($resulti);
 
-$sem1=$rowi['sem1'];
+if(isset($rowi))
+{
+
+  $sem1=$rowi['sem1'];
 $sem2=$rowi['sem2'];
 $sem3=$rowi['sem3'];
 $sem4=$rowi['sem4'];
@@ -33,6 +36,10 @@ $sem5=$rowi['sem5'];
 $sem6=$rowi['sem6'];
 $sem7=$rowi['sem7'];
 $sem8=$rowi['sem8'];
+
+}
+
+
 
 if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
     header("location: index.php");
@@ -85,7 +92,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!=true){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="/docs/4.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <title>Education</title>
+    <title>Current Accademic</title>
 
 </head>
 
